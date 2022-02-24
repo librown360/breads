@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const express = require('express')
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
 
 // CONFIGURATION
 require('dotenv').config()
@@ -29,6 +30,11 @@ app.use('/breads', breadsController)
 app.get('*', (req, res) => {
     res.send('404')
 })
+
+// DATABASE
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => console.log('DB Connected'))
+.catch(e => console.log(e))
 
 // LISTEN
 app.listen(PORT, () => {
