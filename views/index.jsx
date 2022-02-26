@@ -1,20 +1,33 @@
 // DEPENDENCIES
 const React = require('react')
+const baker = require('../models/baker')
 const Default = require('./layouts/Default')
 
-function Index ({breads, title}) {
+function Index ({breads, bakers, title}) {
     return (
         <Default title={title}>
             <h2>Index Page</h2>
-            {/* <p>I have {breads[0].name} bread!</p> */}
+            <h3>Bakers</h3>
+            <ul>
+                {
+                    bakers.map((baker) => {
+                        return (
+                            <li key={baker.id}>
+                                <a href={`/bakers/${baker.id}`}>{baker.name}</a>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+            <h3>Breads</h3>
             <ul>
                 {
                     breads.map((bread) => {
                         return (<li key={bread.id}>
-                            <a href={`/breads/${bread.id}`}>
-                            {bread.name, bread.getBakedBy()}
-                            </a>
-                        </li>)
+                                <a href={`/breads/${bread.id}`}>
+                                {bread.name}
+                                </a>
+                            </li>)
                     })
                 }
             </ul>
